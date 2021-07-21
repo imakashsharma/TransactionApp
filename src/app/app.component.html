@@ -1,0 +1,82 @@
+<div class="container">
+  <table class="table table-trapped table-bordered">
+    <thead>
+      <tr>
+        <th>Transaction Time</th>
+        <th>Type</th>
+        <th>Ammount</th>
+        <th>Description</th>
+        <th>Remaining Balance</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of balance | paginate: {itemsPerPage:5,currentPage:p};">
+        <td>{{todaysDataTime}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.amount}}</td>
+        <td>{{data.description}}</td>
+        <td>{{data.remaining_balance}}</td>
+
+        <!-- <td><button class="btn btn-primary" (click)="getCurrentUser(data)">Get User</button></td> -->
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange) = "p =$event"></pagination-controls>
+  <!-- <button type="button" class="btn btn-primary" (click)="showModalFunction()" data-toggle="modal"
+    data-target="#myModal">
+    Add Transaction
+  </button> -->
+  <br>
+  <br>
+  <button class="btn btn-primary" (click)="open(content)">Add Transaction</button>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Transaction</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form>
+        <div class="form-group">
+          <label for="method">Choose Method</label>
+          <select class="form-control" id="method" [(ngModel)]="data1.type" [ngModelOptions]="{standalone: true}">
+            <option id="credit">Credit</option>
+            <option id="debit">Debit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ammount">Ammount</label>
+          <input type="number" ng class="form-control" id="ammount" placeholder="ex.5000"
+            [(ngModel)]="data1.amount" [ngModelOptions]="{standalone: true}" required>
+        </div>
+        <div class="form-group">
+          <label for="desc">Description</label>
+          <input type="text" class="form-control" id="text" placeholder="ex.Printing Cost"
+            [(ngModel)]="data1.description" [ngModelOptions]="{standalone: true}" required>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="postModalData(); modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<!-- <pre>{{ closeResult }}</pre> -->
+<!-- <router-outlet></router-outlet>
+
+<app-child  (parentFunction)="parentFunction($event)"></app-child>
+<h1>{{name}}</h1>
+
+<ul *ngFor="let x of data">
+  <li>
+      {{x.name}}{{x.age}}
+  </li>
+</ul> -->
